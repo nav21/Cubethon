@@ -15,10 +15,16 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
         if (Keyboard.current.dKey.isPressed) {
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0); 
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange); 
         }
         if (Keyboard.current.aKey.isPressed) {
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        }
+        if (rb.position.y < -1f)
+        {
+            rb.mass = 10000;
+            FindObjectOfType<GameManager>().EndGame();
+
         }
 
     }
